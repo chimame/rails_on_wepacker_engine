@@ -46,3 +46,5 @@ bower.json
 .byebug_history
 
 /node_modules/
+/public/packs
+/public/packs-test
