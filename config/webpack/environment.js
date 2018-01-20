@@ -8,29 +8,24 @@ const filePath = resolve('config', 'rails_engines.yml')
 const config = safeLoad(readFileSync(filePath), 'utf8')[process.env.NODE_ENV]
 const { include_webpacks } = config
 
+const { execSync } = require('child_process')
 const fs = require('fs')
 
 environment.toWebpackConfigForRailsEngine = function() {
   const config = environment.toWebpackConfig()
 
-  Object.keys(include_webpacks).forEach(function(key) {
-    const val = this[key]
-    const enginePath = `${__dirname}/../../node_modules/${key}/`
-    const filePath = `${enginePath}${val}`
+  include_webpacks.forEach(function(engine) {
+    const enginePath = execSync(`bundle show ${engine.name}`).toString().split(/\r?\n/g)[0]
+    const filePath = `${enginePath}/${engine.path}`
     const files = fs.readdirSync(filePath)
+
+    // `import 'engine_name'` so that it can be load
+    config.resolve.modules.push(filePath)
+
     files.forEach(function(file){
       const fullPath = `${filePath}/${file}`
-      config.entry[`${key}_${basename(fullPath, extname(fullPath))}`] = fullPath
+      config.entry[`${engine.name}/${basename(fullPath, extname(fullPath))}`] = fullPath
     })
-  }, include_webpacks)
-
-  config.module.rules.map(function(rule) {
-    if (rule.exclude !== undefined && rule.exclude.source !== undefined && rule.exclude.source.includes('node_modules')) {
-      rule.exclude = new RegExp(`node_modules\/(?!${Object.keys(include_webpacks).join('|')})\/`)
-      return rule
-    } else {
-      return rule
-    }
   })
 
   return config

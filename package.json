@@ -3,5 +3,8 @@
   "private": true,
   "dependencies": {
     "webpacker_engine_client": "git+https://github.com/chimame/webpacker_engine#master"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^2.11.0"
   }
 }

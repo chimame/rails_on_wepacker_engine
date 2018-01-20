@@ -1,6 +1,7 @@
 default: &default
   include_webpacks:
-    webpacker_engine: package/webpacker_engine
+    - name: webpacker_engine
+      path: package/webpacker_engine
 
 development:
   <<: *default

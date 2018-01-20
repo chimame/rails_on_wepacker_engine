@@ -9,7 +9,7 @@ ARG BUNDLE_OPTIONS
 # bundle install
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
-RUN bundle install -j4 ${BUNDLE_OPTIONS}
+RUN bundle install --path vendor/bundle -j4 ${BUNDLE_OPTIONS}
 # yarn install
 ADD package.json /app/package.json
 ADD yarn.lock /app/yarn.lock
