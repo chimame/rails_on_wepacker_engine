@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/chimame/webpacker_engine
-  revision: 90f20c2d8f9161c504c5e64beced61d328cd88b8
+  revision: 68cf5dc12e4a64a32ffec3433eafddf248c953a3
   specs:
     webpacker_engine (0.1.0)
       rails (~> 5.1.4)
@@ -88,7 +88,7 @@ GEM
       mini_portile2 (~> 2.3.0)
     puma (3.10.0)
     rack (2.0.3)
-    rack-proxy (0.6.2)
+    rack-proxy (0.6.3)
       rack
     rack-test (0.7.0)
       rack (>= 1.0, < 3)
@@ -159,7 +159,7 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webpacker (3.0.2)
+    webpacker (3.2.0)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
       railties (>= 4.2)
@@ -188,4 +188,4 @@ DEPENDENCIES
   webpacker_engine!
 
 BUNDLED WITH
-   1.14.6
+   1.15.4

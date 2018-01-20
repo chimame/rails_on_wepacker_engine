@@ -5931,9 +5931,9 @@ webpack@^3.5.5:
     webpack-sources "^1.0.1"
     yargs "^8.0.2"
 
-"webpacker_engine_client@git+https://github.com/chimame/webpacker_engine#master":
+"webpacker_engine@git+https://github.com/chimame/webpacker_engine#master":
   version "0.0.1"
-  resolved "git+https://github.com/chimame/webpacker_engine#90f20c2d8f9161c504c5e64beced61d328cd88b8"
+  resolved "git+https://github.com/chimame/webpacker_engine#68cf5dc12e4a64a32ffec3433eafddf248c953a3"
   dependencies:
     "@rails/webpacker" "^3.0.2"
     babel-preset-react "^6.24.1"
