@@ -1,6 +1,13 @@
 # README
 This is a sample Rails using Rails Engine using Webpacker.
 
+# Usage
+
+```bash
+$ bundle install --path vendor/bundle -j4
+$ bin/rails s
+```
+
 # Description
 
 ## Management JavaScript packages
@@ -71,4 +78,5 @@ module.exports = environment.toWebpackConfigForRailsEngine()
 ```
 
 As written in `package.json`, Engine JavaScript is also placed under `node_modules`, but it is not compiled by babel-loader setting.
-So we rewrite the setting of `exclude` and compile only Engine.
+So load JavaScript of Engine from the folder installed by bundler and compile it.
+As a caution, it must be placed under the project (`bundle install --path vendor/bundle`).
