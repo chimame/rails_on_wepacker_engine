@@ -2,6 +2,6 @@
   "name": "rails_on_wepacker_engine",
   "private": true,
   "dependencies": {
-    "webpacker_engine": "git+https://github.com/chimame/webpacker_engine#master"
+    "webpacker_engine_client": "git+https://github.com/chimame/webpacker_engine#master"
   }
 }
