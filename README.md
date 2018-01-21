@@ -30,18 +30,25 @@ By doing this, management of the JavaScript package used by the Engine can be ma
 
 By default of webpacker you can not use or compile JavaScript on Engine. So add the setting to compile Engine JavaScript on the application side as follows.
 
+### `config/webpack/environment.js`
+
 ```javascript
-// config/webpack/environment.js
 const { environment } = require('@rails/webpacker')
 
 // Add setting for Rails Engine
-const { resolve, basename, extname } = require('path')
+const { basename, dirname, join, relative, resolve } = require('path')
+const { sync } = require('glob')
+const extname = require('path-complete-extname')
 const { safeLoad } = require('js-yaml')
 const { readFileSync } = require('fs')
 
-const filePath = resolve('config', 'rails_engines.yml')
-const config = safeLoad(readFileSync(filePath), 'utf8')[process.env.NODE_ENV]
-const { include_webpacks } = config
+const engineConfigPath = resolve('config', 'rails_engines.yml')
+const engineConfig = safeLoad(readFileSync(engineConfigPath), 'utf8')[process.env.NODE_ENV]
+const { include_webpacks } = engineConfig
+
+const webpackerConfigPath = resolve('config', 'webpacker.yml')
+const webpackerConfig = safeLoad(readFileSync(webpackerConfigPath), 'utf8')[process.env.NODE_ENV]
+const { extensions } = webpackerConfig
 
 const { execSync } = require('child_process')
 const fs = require('fs')
@@ -51,15 +58,17 @@ environment.toWebpackConfigForRailsEngine = function() {
 
   include_webpacks.forEach(function(engine) {
     const enginePath = execSync(`bundle show ${engine.name}`).toString().split(/\r?\n/g)[0]
-    const filePath = `${enginePath}/${engine.path}`
-    const files = fs.readdirSync(filePath)
+    const filePath = join(enginePath, engine.path)
 
     // `import 'engine_name'` so that it can be load
     config.resolve.modules.push(filePath)
 
-    files.forEach(function(file){
-      const fullPath = `${filePath}/${file}`
-      config.entry[`${engine.name}/${basename(fullPath, extname(fullPath))}`] = fullPath
+    const glob = `**/*{${extensions.join(',')}}`
+    const paths = sync(join(filePath, glob))
+    paths.forEach((path) => {
+      const namespace = relative(join(filePath), dirname(path))
+      const name = join(namespace, basename(path, extname(path)))
+      config.entry[name] = resolve(path)
     })
   })
 
@@ -69,8 +78,9 @@ environment.toWebpackConfigForRailsEngine = function() {
 module.exports = environment
 ```
 
+### `config/webpack/development.js`
+
 ```javascript
-// config/webpack/development.js
 const environment = require('./environment')
 
 //module.exports = environment.toWebpackConfig()

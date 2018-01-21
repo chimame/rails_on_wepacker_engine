@@ -5933,7 +5933,7 @@ webpack@^3.5.5:
 
 "webpacker_engine@git+https://github.com/chimame/webpacker_engine#master":
   version "0.0.1"
-  resolved "git+https://github.com/chimame/webpacker_engine#68cf5dc12e4a64a32ffec3433eafddf248c953a3"
+  resolved "git+https://github.com/chimame/webpacker_engine#10728479945078246a45c381797c7b63cbc0c17c"
   dependencies:
     "@rails/webpacker" "^3.0.2"
     babel-preset-react "^6.24.1"

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/chimame/webpacker_engine
-  revision: 68cf5dc12e4a64a32ffec3433eafddf248c953a3
+  revision: 10728479945078246a45c381797c7b63cbc0c17c
   specs:
     webpacker_engine (0.1.0)
       rails (~> 5.1.4)
@@ -188,4 +188,4 @@ DEPENDENCIES
   webpacker_engine!
 
 BUNDLED WITH
-   1.15.4
+   1.16.1
